@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('./backend/db');
 const path = require('path');
+require('dotenv').config()
+const dbConfig = require("./config/dbConfig");
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
@@ -21,8 +23,6 @@ app.use(express.static(path.join(__dirname, 'frontend', 'public')));
  app.use('/auth', authRoutes);
  const quizRoutes = require('./backend/routes/quizMainRoutes');
  app.use('/auth', quizRoutes);
-
-const port = process.env.PORT || 3000;
 
 app.get('/register', (req, res) => {
   res.render('register'); 
@@ -117,6 +117,6 @@ app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => console.log(`Node Server Started at port ${port}`));
